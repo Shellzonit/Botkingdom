@@ -3,7 +3,12 @@ import React, { useState, useEffect, useRef } from "react";
 const USER_ID = "demo-user";
 const BOT_ID = "astra";
 
-export default function Chat() {
+export default function Chat({ activeBot }) {
+  const USER_ID = "demo-user";
+  const bot = activeBot || { name: "Astra", file: "Astra.png", tagline: "Default bot" };
+  const BOT_ID = bot.name ? bot.name.toLowerCase() + "_raw" : "astra";
+  const botAvatar = bot.file ? process.env.PUBLIC_URL + '/' + bot.file : "https://ui-avatars.com/api/?name=Astra&background=f0f0f0&color=333";
+
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -13,7 +18,7 @@ export default function Chat() {
     fetch(`/history/${USER_ID}/${BOT_ID}`)
       .then((res) => res.json())
       .then((data) => setMessages(data));
-  }, []);
+  }, [BOT_ID]);
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -31,13 +36,13 @@ export default function Chat() {
         bot_id: msg.bot_id,
         content: msg.content,
         user_profile_image: msg.user_profile_image || "",
-        bot_avatar: msg.bot_avatar || ""
+        bot_avatar: botAvatar
       }]);
     };
     ws.onclose = () => console.log("WebSocket disconnected");
     // Clean up
     return () => ws.close();
-  }, []);
+  }, [BOT_ID, botAvatar]);
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -55,6 +60,13 @@ export default function Chat() {
 
   return (
     <div className="chat-container">
+      <div className="chat-header">
+        <img src={botAvatar} alt={bot.name} className="chat-bot-avatar" />
+        <div className="chat-bot-info">
+          <div className="chat-bot-name">{bot.name}</div>
+          <div className="chat-bot-tagline">{bot.tagline}</div>
+        </div>
+      </div>
       <div className="messages">
         {messages.map((msg) => (
           <div key={msg.id} className={msg.user_id === USER_ID ? "user-msg" : "bot-msg"}>
@@ -62,8 +74,8 @@ export default function Chat() {
               <img
                 src={msg.user_id === USER_ID
                   ? (msg.user_profile_image || "https://ui-avatars.com/api/?name=You&background=005a9e&color=fff")
-                  : (msg.bot_avatar || "https://ui-avatars.com/api/?name=Astra&background=f0f0f0&color=333")}
-                alt={msg.user_id === USER_ID ? "User" : "Bot"}
+                  : botAvatar}
+                alt={msg.user_id === USER_ID ? "User" : bot.name}
                 className="avatar-img"
               />
             </span>
@@ -77,7 +89,7 @@ export default function Chat() {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          placeholder="Type your message..."
+          placeholder={`Type your message to ${bot.name}...`}
           disabled={loading}
         />
         <button type="submit" disabled={loading || !input.trim()}>

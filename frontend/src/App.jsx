@@ -5,6 +5,7 @@ import Home from "./Home";
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [activeBot, setActiveBot] = useState(null);
   return (
     <div className="app-container">
       <nav style={{ marginBottom: 24 }}>
@@ -12,8 +13,8 @@ export default function App() {
         <button onClick={() => setPage("chat")}>Chat</button>
         <button onClick={() => setPage("bots")}>Bot Management</button>
       </nav>
-      {page === "home" && <Home />}
-      {page === "chat" && <Chat />}
+      {page === "home" && <Home setPage={setPage} setActiveBot={setActiveBot} />}
+      {page === "chat" && <Chat activeBot={activeBot} />}
       {page === "bots" && <BotManager />}
     </div>
   );
