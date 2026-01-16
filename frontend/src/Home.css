@@ -1,17 +1,4 @@
-.bot-tagline {
-  font-family: 'Georgia', serif;
-  font-size: 1.18rem;
-  color: #0a2540;
-  margin-bottom: 2px;
-  font-style: italic;
-  opacity: 0.85;
-}
-.intro {
-  color: #e0e8f3;
-  font-size: 1.35rem;
-
-  z-index: 2;
-}
+/* ...removed duplicate .bot-tagline and .intro... */
 .bot-slot::after {
   content: "";
   display: block;
@@ -25,26 +12,14 @@
   opacity: 0.7;
   z-index: 1;
 }
-.bot-avatar {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  margin-bottom: 22px;
-  border: 4px solid #00cfff;
-  background: #e0e8f3;
-  box-shadow: 0 0 32px 0 #00cfff44;
-}
-.bot-name {
-  font-family: 'Cinzel', serif;
-  font-size: 2.3rem;
-  color: #00cfff;
+
   font-weight: 800;
   margin-bottom: 10px;
   letter-spacing: 1.5px;
   text-shadow: 0 2px 18px rgba(0,90,158,0.18);
 }
 .bot-tagline {
-  font-family: 'Georgia', serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 1.18rem;
   color: #0a2540;
   margin-bottom: 2px;
@@ -55,7 +30,7 @@
   color: #e0e8f3;
   font-size: 1.35rem;
   margin-bottom: 18px;
-  font-family: 'Georgia', serif;
+  font-family: Arial, Helvetica, sans-serif;
   opacity: 0.92;
 }
 .home-victorian .banner {
@@ -64,7 +39,7 @@
   text-align: center;
 }
 .home-victorian .banner h1 {
-  font-family: 'Cinzel', 'Times New Roman', serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-size: 3rem;
   color: #fff;
   letter-spacing: 2px;
@@ -122,4 +97,4 @@
   opacity: 0.7;
   z-index: 1;
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@700&display=swap');
+
